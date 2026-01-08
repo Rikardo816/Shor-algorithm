@@ -1,0 +1,13 @@
+# Quantum computing framework
+qiskit>=0.45.0
+qiskit-ibm-runtime>=0.15.0
+
+# Scientific computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Utilities
+python-dotenv>=1.0.0
