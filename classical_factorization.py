@@ -8,6 +8,11 @@ import random
 from typing import List, Tuple, Optional
 
 
+# Constants for primality testing
+SMALL_PRIME_LIMIT = 1000  # Limit for simple primality test iteration
+PRIME_THRESHOLD = 1000000  # Threshold for assuming a number might be prime
+
+
 def trial_division(n: int) -> List[int]:
     """
     Factor a number using trial division.
@@ -112,8 +117,8 @@ def pollard_rho_factorize(n: int) -> List[int]:
         return [2]
     
     # Check if n is prime (simple primality test)
-    if all(n % i != 0 for i in range(2, min(int(n**0.5) + 1, 1000))):
-        if n < 1000000:
+    if all(n % i != 0 for i in range(2, min(int(n**0.5) + 1, SMALL_PRIME_LIMIT))):
+        if n < PRIME_THRESHOLD:
             return [n]
     
     factors = []
@@ -181,7 +186,7 @@ def is_prime_simple(n: int) -> bool:
     if n % 2 == 0:
         return False
     
-    for i in range(3, min(int(n**0.5) + 1, 10000), 2):
+    for i in range(3, min(int(n**0.5) + 1, SMALL_PRIME_LIMIT), 2):
         if n % i == 0:
             return False
     

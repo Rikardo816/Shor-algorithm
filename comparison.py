@@ -129,16 +129,10 @@ def compare_algorithms(numbers: List[int],
         )
         print(number_results['pollard_rho'])
         
-        # Fermat's Factorization (wrapped)
+        # Fermat's Factorization
         print("\nRunning Fermat's Factorization...")
-        def fermat_wrapper(n):
-            result = fermat_factorization(n)
-            if result:
-                return list(result)
-            return None
-        
         number_results['fermat'] = benchmark_algorithm(
-            fermat_wrapper, number, "Fermat's Factorization"
+            fermat_factorization_wrapper, number, "Fermat's Factorization"
         )
         print(number_results['fermat'])
         
@@ -276,3 +270,19 @@ def generate_test_numbers() -> List[int]:
     ]
     
     return test_numbers
+
+
+def fermat_factorization_wrapper(n: int) -> Optional[List[int]]:
+    """
+    Wrapper function for Fermat's factorization that returns a list format.
+    
+    Args:
+        n: Number to factorize
+        
+    Returns:
+        List of factors or None if factorization fails
+    """
+    result = fermat_factorization(n)
+    if result:
+        return list(result)
+    return None

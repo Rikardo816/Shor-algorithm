@@ -137,6 +137,13 @@ def quantum_period_finding(a: int, N: int, n_count: int = 8, use_simulator: bool
         job = backend.run(transpiled_qc, shots=1000)
         result = job.result()
         counts = result.get_counts()
+        
+        # Process measurement results
+        measured_phases = []
+        for output in counts:
+            decimal = int(output, 2)
+            phase = decimal / (2 ** n_count)
+            measured_phases.append(phase)
     else:
         # Run on IBM Quantum hardware
         # Note: This requires proper IBM Quantum credentials
@@ -147,19 +154,19 @@ def quantum_period_finding(a: int, N: int, n_count: int = 8, use_simulator: bool
                 sampler = Sampler(session=session)
                 job = sampler.run(qc, shots=1000)
                 result = job.result()
-                counts = result.quasi_dists[0]
+                # Extract measurement outcomes from sampler result
+                quasi_dist = result.quasi_dists[0]
+                
+                # Convert quasi-distribution to measurement phases
+                measured_phases = []
+                for outcome, prob in quasi_dist.items():
+                    if prob > 0.01:  # Only consider significant probabilities
+                        phase = outcome / (2 ** n_count)
+                        measured_phases.append(phase)
         except Exception as e:
             print(f"Error running on quantum hardware: {e}")
             print("Falling back to simulator...")
             return quantum_period_finding(a, N, n_count, use_simulator=True)
-    
-    # Process measurement results
-    # Find the most common measurement outcome
-    measured_phases = []
-    for output in counts:
-        decimal = int(output, 2)
-        phase = decimal / (2 ** n_count)
-        measured_phases.append(phase)
     
     # Use most frequent phase
     if not measured_phases:
@@ -194,8 +201,15 @@ def controlled_modular_mult(a: int, N: int, n: int) -> QuantumCircuit:
     """
     Create a circuit for controlled modular multiplication by a mod N.
     
-    This is a simplified placeholder implementation.
-    A full implementation would require proper modular arithmetic circuits.
+    NOTE: This is a simplified placeholder implementation for demonstration purposes.
+    A full implementation of quantum modular exponentiation would require:
+    - Quantum adder circuits
+    - Modular reduction circuits
+    - Proper carry propagation
+    - Many more qubits and gates
+    
+    For a complete thesis implementation, consider using pre-built circuits from
+    Qiskit's circuit library or reference implementations from quantum computing papers.
     
     Args:
         a: Multiplier
@@ -203,13 +217,13 @@ def controlled_modular_mult(a: int, N: int, n: int) -> QuantumCircuit:
         n: Number of qubits
         
     Returns:
-        Quantum circuit for controlled modular multiplication
+        Quantum circuit for controlled modular multiplication (simplified)
     """
     qr = QuantumRegister(n)
     qc = QuantumCircuit(qr)
     
-    # Simplified implementation - in practice, this would be more complex
-    # This is a placeholder that represents the modular exponentiation
+    # Simplified implementation - represents the concept but not full functionality
+    # In practice, this would implement the full modular arithmetic circuit
     for i in range(n):
         if a & (1 << i):
             qc.x(qr[i])
