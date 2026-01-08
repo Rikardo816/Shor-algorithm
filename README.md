@@ -42,20 +42,9 @@ pip install -r requirements.txt
 python example.py
 ```
 
-### Setup
+### Optional: IBM Quantum Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Rikardo816/Shor-algorithm.git
-cd Shor-algorithm
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. (Optional) Configure IBM Quantum access:
+To use Shor's algorithm on real IBM quantum hardware:
    - Create an account at [IBM Quantum](https://quantum.ibm.com/)
    - Get your API token from the dashboard
    - Save your credentials:
