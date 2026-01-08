@@ -24,6 +24,24 @@ This repository contains implementations of:
 - Python 3.8 or higher
 - pip package manager
 
+### Quick Start
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Rikardo816/Shor-algorithm.git
+cd Shor-algorithm
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the example:
+```bash
+python example.py
+```
+
 ### Setup
 
 1. Clone the repository:
@@ -114,6 +132,7 @@ python main.py --output my_results.json --numbers 77 143 221
 ```
 Shor-algorithm/
 ├── main.py                      # Main execution script
+├── example.py                   # Simple example/demo script
 ├── classical_factorization.py   # Classical algorithms implementation
 ├── shors_algorithm.py          # Shor's algorithm implementation
 ├── comparison.py               # Benchmarking and comparison tools
